@@ -20,6 +20,7 @@ class TestableExtensionRuntime: ExtensionRuntime {
     public var createdXdmSharedStates: [[String: Any]?] = []
     var otherSharedStates: [String: SharedStateResult] = [:]
     var otherXDMSharedStates: [String: SharedStateResult] = [:]
+    public var mockedRegisteredExtensions: [String] = []
 
     func getListener(type: String, source: String) -> EventListener? {
         return listeners["\(type)-\(source)"]
@@ -76,6 +77,12 @@ class TestableExtensionRuntime: ExtensionRuntime {
 
     public func simulateXDMSharedState(for extensionName: String, data: (value: [String: Any]?, status: SharedStateStatus)) {
         otherXDMSharedStates["\(extensionName)"] = SharedStateResult(status: data.status, value: data.value)
+    }
+
+    /// Simulates a list of extensions names to be mocked as registered.
+    /// - Parameter registeredExtensions: A list of shared state names for extensions that should be marked as registered
+    public func simulateRegisteredExtensions(registeredExtensions: [String]) {
+        mockedRegisteredExtensions = registeredExtensions
     }
 
     /// clear the events and shared states that have been created by the current extension

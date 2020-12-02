@@ -29,6 +29,7 @@ class IdentityState {
 
     /// Creates a new `IdentityState` with the given identity properties
     /// - Parameter identityProperties: identity properties
+    /// - Parameter hitQueue: hit queue for the Identity extension
     /// - Parameter pushIdManager: a push id manager
     init(identityProperties: IdentityProperties, hitQueue: HitQueuing, pushIdManager: PushIDManageable) {
         self.identityProperties = identityProperties

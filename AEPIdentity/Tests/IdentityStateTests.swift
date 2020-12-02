@@ -467,6 +467,36 @@ class IdentityStateTests: XCTestCase {
         XCTAssertTrue(hit.url.absoluteString.contains("device_consent=0")) // device flag should be added
     }
 
+    /// Tests that the ad is is correctly updated when a new value is passed
+    func testSyncIdentifiersAdIDIsUpdatedFromValidToEmpty_EdgeIsRegistered() {
+        // setup
+        let configSharedState = [IdentityConstants.Configuration.EXPERIENCE_CLOUD_ORGID: "test-org",
+                                 IdentityConstants.Configuration.EXPERIENCE_CLOUD_SERVER: "test-server",
+                                 IdentityConstants.Configuration.GLOBAL_CONFIG_PRIVACY: PrivacyStatus.optedIn.rawValue] as [String: Any]
+        var props = IdentityProperties()
+        props.advertisingIdentifier = "test-ad-id"
+        state = IdentityState(identityProperties: props, hitQueue: MockHitQueue(processor: MockHitProcessor(shouldQueue: false)), pushIdManager: mockPushIdManager)
+        state.lastValidConfig = configSharedState
+
+        // verify
+        XCTAssertTrue(mockHitQueue.queuedHits.isEmpty) // not hit queued since Edge is registered
+    }
+
+    /// Tests that the ad is is correctly updated when a new value is passed
+    func testSyncIdentifiersAdIDIsUpdatedFromValidToZeroString_EdgeIsRegistered() {
+        // setup
+        let configSharedState = [IdentityConstants.Configuration.EXPERIENCE_CLOUD_ORGID: "test-org",
+                                 IdentityConstants.Configuration.EXPERIENCE_CLOUD_SERVER: "test-server",
+                                 IdentityConstants.Configuration.GLOBAL_CONFIG_PRIVACY: PrivacyStatus.optedIn.rawValue] as [String: Any]
+        var props = IdentityProperties()
+        props.advertisingIdentifier = "test-ad-id"
+        state = IdentityState(identityProperties: props, hitQueue: MockHitQueue(processor: MockHitProcessor(shouldQueue: false)), pushIdManager: mockPushIdManager)
+        state.lastValidConfig = configSharedState
+
+        // test
+        XCTAssertTrue(mockHitQueue.queuedHits.isEmpty) // not hit queued since Edge is registered
+    }
+
     /// Tests that when updating the ad id from zero string to valid we add the consent flag as true
     func testSyncIdentifiersAdIDIsUpdatedFromZeroStringToValid() {
         // setup

@@ -33,7 +33,7 @@ import Foundation
             return
         }
 
-        let hitQueue = PersistentHitQueue(dataQueue: dataQueue, processor: IdentityHitProcessor(responseHandler: handleNetworkResponse(hit:responseData:)))
+        let hitQueue = PersistentHitQueue(dataQueue: dataQueue, processor: IdentityHitProcessor(responseHandler: handleNetworkResponse(hit:responseData:), isEdgeRegistered: isEdgeRegistered))
 
         let dataStore = NamedCollectionDataStore(name: IdentityConstants.DATASTORE_NAME)
         let pushIdManager = PushIDManager(dataStore: dataStore, eventDispatcher: dispatch(event:))
@@ -227,5 +227,12 @@ import Foundation
         let privacyStatus = PrivacyStatus(rawValue: privacyStatusStr) ?? PrivacyStatus.unknown
 
         return privacyStatus == .optedOut
+    }
+
+    /// - Returns: Returns true if the Edge extension is registered, false otherwise
+    private func isEdgeRegistered() -> Bool {
+        guard let eventHubSharedState = getSharedState(extensionName: IdentityConstants.SharedStateKeys.EVENT_HUB, event: nil)?.value else { return false }
+        guard let registeredExtensions = eventHubSharedState[IdentityConstants.SharedStateKeys.EventHub.EXTENSIONS] as? [String: Any] else { return false }
+        return registeredExtensions.keys.contains(IdentityConstants.Edge.FRIENDLY_NAME)
     }
 }

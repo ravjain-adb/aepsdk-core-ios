@@ -25,6 +25,12 @@ enum IdentityConstants {
 
     enum SharedStateKeys {
         static let CONFIGURATION = "com.adobe.module.configuration"
+        static let EDGE = "com.adobe.edge"
+        static let EVENT_HUB = "com.adobe.module.eventhub"
+
+        enum EventHub {
+            static let EXTENSIONS = "extensions"
+        }
     }
 
     enum Configuration {
@@ -100,6 +106,10 @@ enum IdentityConstants {
         static let EVENT_PUSH_STATUS = "a.push.optin"
         static let PUSH_ID_ENABLED_ACTION_NAME = "Push"
         static let TRACK_INTERNAL = "trackinternal"
+    }
+
+    enum Edge {
+        static let FRIENDLY_NAME = "Edge"
     }
 
     enum XDM {
