@@ -14,13 +14,14 @@ import Foundation
 
 public class FullScreenMessage {
     var fullScreenMessageHandler: FullScreenUIHandler?
-    
+
     /// @private constructor
     /// @see CreateFullscreenMessage method for construction
     private init() {}
 
-    static func createFullscreenMessage(html: String, _ listener: FullscreenListenerInterface, _ messageMonnitor: MessageMonitor, _ isLocalImageUsed: Bool) -> FullScreenMessage? {
+    static func createFullscreenMessage(html: String, _ listener: FullscreenListenerInterface?, _ messageMonitor: MessageMonitor, _ isLocalImageUsed: Bool) -> FullScreenMessage? {
         let newMessage: FullScreenMessage = FullScreenMessage()
+        newMessage.initMessage(html: html, listener, messageMonitor, false)
         return newMessage
     }
 
@@ -30,13 +31,13 @@ public class FullScreenMessage {
     /// @param listener - listener which will be called on message show/dismiss/openUrl
     /// @param messageMonnitor - MessageMonitor object which determines whether any display is already present
     /// @param isLocalImageUsed If true, an image from the app bundle will be used for the fullscreen message.
-    func initMessage(html: String, _ listener: FullscreenListenerInterface, _ messageMonnitor: MessageMonitor, _ isLocalImageUsed: Bool) {
-        fullScreenMessageHandler = FullScreenUIHandler(payload: html, message: self, listener: listener, monitor: messageMonnitor, isLocalImageUsed: isLocalImageUsed )
+    func initMessage(html: String, _ listener: FullscreenListenerInterface?, _ messageMonitor: MessageMonitor, _ isLocalImageUsed: Bool) {
+        fullScreenMessageHandler = FullScreenUIHandler(payload: html, message: self, listener: listener, monitor: messageMonitor, isLocalImageUsed: isLocalImageUsed )
     }
 }
 
-//MARK: - Protocol Methods
-extension FullScreenMessage : FullScreenMessageUiInterface {
+// MARK: - Protocol Methods
+extension FullScreenMessage: FullScreenMessageUiInterface {
 
     public func show() {
         fullScreenMessageHandler?.show()
