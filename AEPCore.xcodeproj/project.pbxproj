@@ -305,6 +305,9 @@
 		78AA4EC62513AE3900205AE9 /* ConfigurationLifecycleResponseTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78AA4EC52513AE3900205AE9 /* ConfigurationLifecycleResponseTests.swift */; };
 		78AA4EC92513AEBD00205AE9 /* ConfigurationPrivacyStatusTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78AA4EC82513AEBD00205AE9 /* ConfigurationPrivacyStatusTests.swift */; };
 		78AA4ECB2513AF4200205AE9 /* ConfigurationAppIDTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78AA4ECA2513AF4200205AE9 /* ConfigurationAppIDTests.swift */; };
+		923547EB25BF9C6600BEA9A3 /* UIUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 923547EA25BF9C6600BEA9A3 /* UIUtils.swift */; };
+		923547FC25BFF18200BEA9A3 /* FloatingButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 923547FB25BFF18200BEA9A3 /* FloatingButton.swift */; };
+		9235481A25BFF19800BEA9A3 /* FloatingButtonDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9235481925BFF19800BEA9A3 /* FloatingButtonDelegate.swift */; };
 		9239714025A6380A0056A3E5 /* MessagingDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9239713F25A6380A0056A3E5 /* MessagingDelegate.swift */; };
 		9239728525ACF1490056A3E5 /* AlertMessageDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9239726725ACF1460056A3E5 /* AlertMessageDelegate.swift */; };
 		923972A325AD26190056A3E5 /* AlertMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 923972A225AD26190056A3E5 /* AlertMessage.swift */; };
@@ -876,6 +879,9 @@
 		78AA4EC52513AE3900205AE9 /* ConfigurationLifecycleResponseTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfigurationLifecycleResponseTests.swift; sourceTree = "<group>"; };
 		78AA4EC82513AEBD00205AE9 /* ConfigurationPrivacyStatusTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfigurationPrivacyStatusTests.swift; sourceTree = "<group>"; };
 		78AA4ECA2513AF4200205AE9 /* ConfigurationAppIDTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfigurationAppIDTests.swift; sourceTree = "<group>"; };
+		923547EA25BF9C6600BEA9A3 /* UIUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIUtils.swift; sourceTree = "<group>"; };
+		923547FB25BFF18200BEA9A3 /* FloatingButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FloatingButton.swift; sourceTree = "<group>"; };
+		9235481925BFF19800BEA9A3 /* FloatingButtonDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FloatingButtonDelegate.swift; sourceTree = "<group>"; };
 		9239713F25A6380A0056A3E5 /* MessagingDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessagingDelegate.swift; sourceTree = "<group>"; };
 		9239726725ACF1460056A3E5 /* AlertMessageDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertMessageDelegate.swift; sourceTree = "<group>"; };
 		923972A225AD26190056A3E5 /* AlertMessage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertMessage.swift; sourceTree = "<group>"; };
@@ -1781,6 +1787,7 @@
 		921EE17A2579E89E00A119FA /* ui */ = {
 			isa = PBXGroup;
 			children = (
+				923547FA25BFF16900BEA9A3 /* floating */,
 				9239726625ACF1340056A3E5 /* alert */,
 				92EEA64D258956FE00DBA3EE /* fullscreen */,
 				92EEA6052589343700DBA3EE /* MessageMonitorService.swift */,
@@ -1788,8 +1795,18 @@
 				92F06BFB25B8F1FE004C1700 /* MessageMonitorServicing.swift */,
 				9239713F25A6380A0056A3E5 /* MessagingDelegate.swift */,
 				923972B225AD844E0056A3E5 /* UIApplication+Window.swift */,
+				923547EA25BF9C6600BEA9A3 /* UIUtils.swift */,
 			);
 			path = ui;
+			sourceTree = "<group>";
+		};
+		923547FA25BFF16900BEA9A3 /* floating */ = {
+			isa = PBXGroup;
+			children = (
+				923547FB25BFF18200BEA9A3 /* FloatingButton.swift */,
+				9235481925BFF19800BEA9A3 /* FloatingButtonDelegate.swift */,
+			);
+			path = floating;
 			sourceTree = "<group>";
 		};
 		9239726625ACF1340056A3E5 /* alert */ = {
@@ -2883,6 +2900,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				923547EB25BF9C6600BEA9A3 /* UIUtils.swift in Sources */,
 				3F0397CE24BE5FF30019F095 /* LoggingService.swift in Sources */,
 				786C000525B8EE2100F26D34 /* DefaultHeadersFormatter.swift in Sources */,
 				3F0397C924BE5FF30019F095 /* Logging.swift in Sources */,
@@ -2895,6 +2913,7 @@
 				3F0397DF24BE5FF30019F095 /* URLOpening.swift in Sources */,
 				3F0397CC24BE5FF30019F095 /* NetworkService.swift in Sources */,
 				923972A325AD26190056A3E5 /* AlertMessage.swift in Sources */,
+				9235481A25BFF19800BEA9A3 /* FloatingButtonDelegate.swift in Sources */,
 				3F0397C424BE5FF30019F095 /* Cache.swift in Sources */,
 				3F0397D724BE5FF30019F095 /* DataQueueService.swift in Sources */,
 				3F0397F324BE60910019F095 /* PersistentHitQueue.swift in Sources */,
@@ -2902,6 +2921,7 @@
 				3F0397C724BE5FF30019F095 /* CacheExpiry.swift in Sources */,
 				3F0397C624BE5FF30019F095 /* DiskCacheService.swift in Sources */,
 				3F0397FC24BE60910019F095 /* OperationOrderer.swift in Sources */,
+				923547FC25BFF18200BEA9A3 /* FloatingButton.swift in Sources */,
 				3F0397D324BE5FF30019F095 /* SQLiteDataQueue.swift in Sources */,
 				3F0397C324BE5FF30019F095 /* Caching.swift in Sources */,
 				923972B325AD844E0056A3E5 /* UIApplication+Window.swift in Sources */,

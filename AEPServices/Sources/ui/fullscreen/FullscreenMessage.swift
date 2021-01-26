@@ -70,7 +70,7 @@ public class FullscreenMessage: NSObject, WKNavigationDelegate, UIMessaging {
         }
 
         DispatchQueue.main.async {
-            guard var newFrame: CGRect = self.calcFullscreenFrame() else {
+            guard var newFrame: CGRect = UIUtils.getFrame()?.frame else {
                 Log.debug(label: self.LOG_PREFIX, "Failed to show the fullscreen message, newly created frame is nil.")
                 return
             }
@@ -191,25 +191,10 @@ public class FullscreenMessage: NSObject, WKNavigationDelegate, UIMessaging {
         return wkWebView
     }
 
-    // MARK: web layout helpers
-    private func calcFullscreenFrame() -> CGRect? {
-        var newFrame = CGRect(x: 0, y: 0, width: 0, height: 0)
-        // x is always 0
-        newFrame.origin.x = 0
-        // for fullscreen, width and height are both full screen
-        let keyWindow = UIApplication.shared.getKeyWindow()
-        guard let screenBounds: CGSize = keyWindow?.frame.size else { return nil }
-        newFrame.size = screenBounds
-
-        // y is dependant on visibility and height
-        newFrame.origin.y = 0
-        return newFrame
-    }
-
     private func dismissWithAnimation(animate: Bool) {
         DispatchQueue.main.async {
             UIView.animate(withDuration: animate ? 0.3: 0, animations: {
-                guard var newFrame: CGRect = self.calcFullscreenFrame() else {
+                guard var newFrame: CGRect = UIUtils.getFrame()?.frame else {
                     return
                 }
                 newFrame.origin.y = newFrame.size.height
