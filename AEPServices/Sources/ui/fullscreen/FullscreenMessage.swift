@@ -26,7 +26,7 @@ public class FullscreenMessage: NSObject, WKNavigationDelegate, UIMessaging {
 
     var isLocalImageUsed = false
     var payload: String
-    var listener: FullscreenDelegate?
+    var listener: FullscreenMessageDelegate?
     var webView: UIView?
 
     private var messageService: MessageMonitorServicing {
@@ -45,7 +45,7 @@ public class FullscreenMessage: NSObject, WKNavigationDelegate, UIMessaging {
     /// - Parameters:
     ///     - payload: String html content to be displayed with the message
     ///     - listener: `FullscreenMessageDelegate` listener to listening the message lifecycle.
-    public convenience init(payload: String, listener: FullscreenDelegate?) {
+    public convenience init(payload: String, listener: FullscreenMessageDelegate?) {
         self.init(payload: payload, listener: listener, isLocalImageUsed: false)
     }
 
@@ -58,7 +58,7 @@ public class FullscreenMessage: NSObject, WKNavigationDelegate, UIMessaging {
     ///     - payload: String html content to be displayed with the message
     ///     - listener: `FullscreenMessageDelegate` listener to listening the message lifecycle.
     ///     - isLocalImageUsed: If true, an image from the app bundle will be used for the fullscreen message.
-    public init(payload: String, listener: FullscreenDelegate?, isLocalImageUsed: Bool) {
+    public init(payload: String, listener: FullscreenMessageDelegate?, isLocalImageUsed: Bool) {
         self.payload = payload
         self.listener = listener
         self.isLocalImageUsed = isLocalImageUsed

@@ -19,18 +19,18 @@ public class FloatingButton: NSObject {
     
     private let PREVIEW_BUTTON_WIDTH = 60
     private let PREVIEW_BUTTON_HEIGHT = 60
-    
+
     private var singleTap: UITapGestureRecognizer?
     private var panner: UIPanGestureRecognizer?
     private var timer: Timer?
     private var buttonImageView: UIImageView?
-    
+
     private var listener: FloatingButtonListening?
-    
-    init(listener: FloatingButtonListening?) {
+
+    public init(listener: FloatingButtonListening?) {
         self.listener = listener
     }
-    
+
     /// Display the floating button on the screen
     public func display() {
         DispatchQueue.main.async {
@@ -57,26 +57,30 @@ public class FloatingButton: NSObject {
             self.buttonImageView = nil
         }
     }
-    
+
     private func initFloatingButton() -> Bool {
         guard let newFrame: CGRect = getImageFrame() else {
             // todo add LOG
             return false
         }
         self.buttonImageView = UIImageView(frame: newFrame)
-        
+
         // color
-        self.buttonImageView?.backgroundColor = .red
-        
+        guard let imageData: Data = Data.init(base64Encoded: UIUtils.ENCODED_BACKGROUND_PNG, options: NSData.Base64DecodingOptions.ignoreUnknownCharacters) else {
+            return false
+        }
+        let image = UIImage(data: imageData)
+        self.buttonImageView?.image = image
+
         // other properties
         self.buttonImageView?.contentMode = .scaleAspectFit
         self.buttonImageView?.isOpaque = true
         //self.buttonImageView?.backgroundColor = .clear
         self.buttonImageView?.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-        
+
         // gesture
         self.panner = UIPanGestureRecognizer(target: self, action: #selector(panWasRecognized))
-        
+
         if let panner = self.panner {
             self.buttonImageView?.addGestureRecognizer(panner)
             self.buttonImageView?.isUserInteractionEnabled = true
@@ -84,13 +88,13 @@ public class FloatingButton: NSObject {
             // todo add LOG
             return false
         }
-        
+
         self.singleTap = UITapGestureRecognizer(target: self, action: #selector(tapDetected))
         if let singleTap = self.singleTap {
             singleTap.numberOfTapsRequired = 1
             self.buttonImageView?.addGestureRecognizer(singleTap)
         }
-        
+
         // view
         let keyWindow = UIApplication.shared.getKeyWindow()
         if let buttonImageView = self.buttonImageView {
@@ -121,7 +125,7 @@ public class FloatingButton: NSObject {
             }
             let center = draggedView.center
             draggedView.center = CGPoint(x: center.x + offset.x, y: center.y + offset.y)
-            
+
             // Reset translation to zero so on the next `panWasRecognized:` message, the
             // translation will just be the additional movement of the touch since now.
             self.panner?.setTranslation(CGPoint(x: 0, y: 0), in: draggedView.superview)
@@ -131,16 +135,16 @@ public class FloatingButton: NSObject {
     
     @objc private func tapDetected(recognizer: UITapGestureRecognizer) {
         DispatchQueue.main.async {
-            let keyWindow = UIApplication.shared.getKeyWindow()
-            if let buttonImageView = self.buttonImageView {
-                keyWindow?.bringSubviewToFront(buttonImageView)
-            }
+            self.listener?.onTapDetected()
         }
     }
     
     @objc private func bringFloatingButtonToFront(timer: Timer) {
         DispatchQueue.main.async {
-            self.listener?.onTapDetected()
+            let keyWindow = UIApplication.shared.getKeyWindow()
+            if let buttonImageView = self.buttonImageView {
+                keyWindow?.bringSubviewToFront(buttonImageView)
+            }
         }
     }
     
