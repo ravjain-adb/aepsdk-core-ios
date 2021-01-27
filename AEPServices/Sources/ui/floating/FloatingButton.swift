@@ -113,7 +113,7 @@ public class FloatingButton: NSObject {
                 finalFrame.origin.x = (screenBounds.width - CGFloat(self.PREVIEW_BUTTON_WIDTH)) / 2
                 buttonImageView.frame = finalFrame
             }, completion: nil)
-            
+
             // Notifiying global listeners
             self.listener?.onShow()
         }

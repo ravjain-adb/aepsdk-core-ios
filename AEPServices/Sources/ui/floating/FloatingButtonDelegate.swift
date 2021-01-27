@@ -19,11 +19,11 @@ import Foundation
 
     /// Invoked when the floating button is dragged on the screen
     func onPanDetected()
-    
+
     /// Invoked when the floating button is displayed
     @objc(onShowWithFloatingButton)
     func onShow()
-    
+
     /// Invoked when the floating button is removed
     @objc(onDismissWithFloatingButton)
     func onDismiss()
